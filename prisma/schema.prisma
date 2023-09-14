@@ -10,29 +10,18 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+
 model User {
-  id    Int @id @default(autoincrement())
-  name  String
-  email String @unique
-
-  profile UserProfile[]
-  booking booking[]
-}
-
-model UserProfile {
-  id    Int @id @default(autoincrement())
-  name   String
-  email  String @unique
-  userId Int @unique
-
-  user User @relation(fields: [userId], references: [id])
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  name      String?
+  password  String
+  booking     booking[]
 }
 
 model booking {
-  id    Int @id @default(autoincrement())
-  num_of_seats    Int
-  time_of_booking DateTime  @default(now())
-  userId          Int @unique
-  user            User   @relation(fields: [userId], references: [id])
- 
+  id        Int      @id @default(autoincrement())
+  numOfSeats Int
+  userId    Int
+  user    User     @relation(fields: [userId], references: [id])
 }
