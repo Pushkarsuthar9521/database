@@ -1,9 +1,16 @@
 const express = require("express");
 const { PrismaClient } = require("@prisma/client");
 const prisma = new PrismaClient();
+const cors = require("cors");
 
 const app = express(); // create express app
 app.use(express.json());
+app.use(
+  cors({
+    origin:[ "http://localhost:3000"],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // create user
 app.post("/user", async (req, res) => {
